@@ -2,6 +2,7 @@ use axum::{
     http::StatusCode, response::IntoResponse, routing::get, Json, Router
 };
 use serde::{Deserialize,Serialize};
+use tokio::io::stdout;
 
 
 
@@ -10,10 +11,11 @@ static mut TOOLS: Vec<Tools> = Vec::new();
 
 #[derive(Deserialize,Clone,Serialize)]
 struct Tools {
-    name: String,
-    description: String,
-    url: String,
-    empresa: String,
+        name: String,
+        description: String,
+        url: String,
+        empresa: String,
+        cep:String
 }
 
 async fn add_item(Json(tool): Json<Tools>) -> impl IntoResponse {
@@ -39,5 +41,6 @@ async fn main() {
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }
+
 
 
