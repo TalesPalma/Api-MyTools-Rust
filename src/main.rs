@@ -13,6 +13,7 @@ static mut TOOLS: Vec<Tools> = Vec::new();
 struct Tools {
         name: String,
         description: String,
+        price: String,
         url: String,
         empresa: String,
         cep:String
@@ -36,7 +37,7 @@ async fn tools_get() -> Json<Vec<Tools>> {
 async fn main() {
     // build our application with a single route
     let app = Router::new().route("/tools", get(tools_get).post(add_item));
-
+    print!("teste");
     // run our app with hyper, listening globally on port 3000
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     axum::serve(listener, app).await.unwrap();
